@@ -1,5 +1,8 @@
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import { ApolloServer, BaseContext } from "@apollo/server";
+import {
+  StartStandaloneServerOptions,
+  startStandaloneServer,
+} from "@apollo/server/standalone";
 
 import { typeDefs } from "./Domain/schema";
 
@@ -11,8 +14,8 @@ const server = new ApolloServer({
   introspection: true,
 });
 
-const { url } = await startStandaloneServer(server, {
+startStandaloneServer(server, {
   listen: { port: 4000 },
+}).then(({ url }) => {
+  console.log(`🚀  Server ready at: ${url}`);
 });
-
-console.log(`🚀  Server ready at: ${url}`);
